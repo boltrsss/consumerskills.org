@@ -32,44 +32,39 @@ pintrk('page');
 
 <script>
 (function() {
-    // 目標 URL
+    // 1. 設定目標 URL
     const targetUrl = "https://go.consumerskills.org/click";
 
-    // 1. 強制修改所有 CTA 連結 (去除參數，僅保留目標網址)
+    // 2. 修改按鈕的函數 (確保沒有參數)
     function cleanAndSetLinks() {
         const ctaButtons = document.querySelectorAll('a[call-to-action]');
         ctaButtons.forEach(btn => {
-            // 直接將 href 設定為目標網址，不帶任何參數
-            btn.setAttribute('href', targetUrl);
-            
-            // 如果你希望保留原本連結上可能有的其他屬性，只需覆蓋 href 即可
-            // 這樣可以確保點擊時不會帶上任何原有的 query string
+            // 強制設為乾淨網址
+            if (btn.getAttribute('href') !== targetUrl) {
+                btn.setAttribute('href', targetUrl);
+            }
         });
     }
 
-    // 頁面載入時執行一次
-    window.addEventListener('DOMContentLoaded', cleanAndSetLinks);
-    
-    // 監聽 DOM 變更，防止動態生成的按鈕帶有舊參數
+    // 3. 監控 DOM：只移除舊的 CTR 追蹤，保留新的 MaxConv
     const observer = new MutationObserver((mutations) => {
-        cleanAndSetLinks();
-    });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-
-    // 2. 移除追蹤與初始化腳本 (防止它們在背景自動補上參數)
-    const observerScripts = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
-                // 移除標記為追蹤或與 CTR 系統相關的腳本
-                if (node.tagName === 'SCRIPT' && 
-                   (node.hasAttribute('data-ctr-tracking-script') || 
-                    node.src && node.src.includes('CTR_FP_TRACKING'))) {
+                // 檢查是否為追蹤腳本，且不是我們要保留的 MaxConv
+                if (node.tagName === 'SCRIPT' && node.hasAttribute('data-ctr-tracking-script')) {
                     node.remove();
                 }
             });
         });
+        cleanAndSetLinks(); // 同時維護連結乾淨
     });
-    observerScripts.observe(document.documentElement, { childList: true, subtree: true });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    // 4. 初次執行
+    window.addEventListener('DOMContentLoaded', () => {
+        cleanAndSetLinks();
+    });
 })();
 </script>
 
