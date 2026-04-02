@@ -31,13 +31,34 @@ link.updateCtaButtonWithNewPath();link.addParamsToCtaButton();</script><script s
 
 
 <script>
-window.addEventListener("load", function () {
-  const url = "https://go.rhondafinds.com/click?epik={epik}";
+(function () {
+  const CTA_URL = "https://go.consumerskills.org/click";
 
-  document.querySelectorAll('a[href="./anti-snore-pillow"]').forEach(el => {
-    el.href = url;
+  function replaceCtas() {
+    document.querySelectorAll('a[href="./anti-snore-pillow"]').forEach(function (el) {
+      el.setAttribute("href", CTA_URL);
+    });
+  }
+
+  window.addEventListener("load", function () {
+    replaceCtas();
+
+    // 防止 CTRwow / 其他 script 載入後又改回去
+    setTimeout(replaceCtas, 500);
+    setTimeout(replaceCtas, 1500);
+    setTimeout(replaceCtas, 3000);
   });
-});
+
+  // 若頁面後續動態插入內容，也再補一次
+  const observer = new MutationObserver(function () {
+    replaceCtas();
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+})();
 </script>
 </html>
 
