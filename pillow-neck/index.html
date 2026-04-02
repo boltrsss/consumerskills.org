@@ -22,7 +22,7 @@
       
       
       
-      <script src="https://cdn.wowsuite.ai/ctrwow/common/js/jquery-3.4.1.custom.min.js?v=1774929138335" defer integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+      
       
       <script src="https://cdn.wowsuite.ai/ctrwow/common/js/blazy.min.js?v=1774929138335" defer integrity="sha384-FlX58eB2jw6JYcxbyEMdW++p13qEtlQOjzF8zIX4n0t6TfNZq9KV0vNdMoSg6Gqn" crossorigin="anonymous"></script>
       
@@ -422,64 +422,9 @@ pintrk('page');
       <style data-style-component-id="ir1uk" id="ih80se"></style>
       <style data-style-component-id="i5a64" id="ifmeea"></style>
       <style>.ctr_marked_branding_item_child{display:block!important;text-align:center!important;margin-top:10px!important}.__ctr_marked_branding_item_img{max-width:166px !important}.DMCA_Logo{display:block!important}</style>
-      <script>window.addEventListener('DOMContentLoaded',function(){const heroImg=document.querySelector('img.hero-img');if(heroImg){const link=document.createElement('link');link.rel='preload';link.as='image';link.href=heroImg.currentSrc||heroImg.src;document.head.appendChild(link);}});</script><script>const link={__getParameterByName:(name,url)=>{if(!url)url=location.href
-         url=url.toLowerCase()
-         name=name.toLowerCase()
-         name=name.replace(/[\[\]]/g,'\\$&')
-         const regex=new RegExp('[?&]'+name+'(=([^&]*)|&|$)')
-         const results=regex.exec(url)
-         if(!results)return null
-         if(!results[2])return''
-         return decodeURIComponent(results[2].replace(/\+/g,' '))},__updateURLPath:(link,path)=>{const url=link.split("?")[0];const linkPath=url.substr(url.lastIndexOf("/")+1);return link.replace(linkPath,path);},__removeDuplicateParamsInHref:(href)=>{const strParams=href.split('?').length>1?href.split("?")[1]:''
-         if(strParams!==''){const arrayParams=strParams.split('&')
-         if(arrayParams.length<=1)return href
-         const keys=[]
-         const newParams=[]
-         arrayParams.reverse().forEach(function(param){const key=param.split('=')[0]
-         if(!keys.includes(key)){keys.push(key)
-         newParams.push(param)}})
-         return href.split('?')[0]+'?'+newParams.reverse().join('&')}
-         return href},updateCtaButtonWithNewPath:()=>{const PRESALE=1;const INTERSTITIAL=5;let name='';if(window.__CTRWOW_CONFIG&&window.__CTRWOW_CONFIG.PAGE_TYPE===PRESALE){name='pcta'}
-         if(window.__CTRWOW_CONFIG&&window.__CTRWOW_CONFIG.PAGE_TYPE===INTERSTITIAL){name='icta';}
-         const path=link.__getParameterByName(name);const arr__CtaButtons=document.querySelectorAll("a[call-to-action]")
-         arr__CtaButtons.forEach(ctaButton=>{const currentHref=ctaButton.getAttribute('href');if(!path)return;const newHref=link.__updateURLPath(currentHref,path);ctaButton.setAttribute("href",newHref)})},addParamsToCtaButton:()=>{const{location}=window
-         const urlStrParams=location.search.replace("?","")
-         const arr__CtaButtons=document.querySelectorAll("a")
-         arr__CtaButtons.forEach(ctaButton=>{let currentHref=ctaButton.getAttribute("href")
-         if(currentHref&&currentHref.indexOf("#")!==0&&currentHref.indexOf("mailto")!==0&&currentHref.indexOf("tel")!==0){let newHref=currentHref.indexOf("?")>-1?`${currentHref}&${urlStrParams}`:`${currentHref}?${urlStrParams}`
-         newHref=link.__removeDuplicateParamsInHref(newHref);ctaButton.setAttribute("href",newHref)}})}}
-         link.updateCtaButtonWithNewPath();link.addParamsToCtaButton();
-      </script><script src="./assets/js/how-to-stop-snoring.js?v=1774929138335" defer></script><script data-ctr-tracking-script>window.addEventListener('load',function(){setTimeout(function(){window.ctrwowUtils.tracking.pushGtmTrackingEvent('Presale');},window.ctrDevDebugger__UtilsTesting__delayTime||0)});</script>
       
-      <script>
-         (function () {
-           const CTA_URL = "https://go.consumerskills.org/click";
-         
-           function replaceCtas() {
-             document.querySelectorAll('a[href="https://go.consumerskills.org/click"]').forEach(function (el) {
-               el.setAttribute("href", CTA_URL);
-             });
-           }
-         
-           window.addEventListener("load", function () {
-             replaceCtas();
-         
-             // 防止 CTRwow / 其他 script 載入後又改回去
-             setTimeout(replaceCtas, 500);
-             setTimeout(replaceCtas, 1500);
-             setTimeout(replaceCtas, 3000);
-           });
-         
-           // 若頁面後續動態插入內容，也再補一次
-           const observer = new MutationObserver(function () {
-             replaceCtas();
-           });
-         
-           observer.observe(document.documentElement, {
-             childList: true,
-             subtree: true
-           });
-         })();
-      </script>
-</html>
+      
+      <script src="./assets/js/how-to-stop-snoring.js?v=1774929138335" defer></script>
+      
+      
 </html>
