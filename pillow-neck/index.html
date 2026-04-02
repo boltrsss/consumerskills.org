@@ -85,6 +85,42 @@
             src="https://ct.pinterest.com/v3/?event=init&tid=2612654090648&pd[em]=<hashed_email_address>&noscript=1" />
       </noscript>
       <!-- end Pinterest Tag -->
+
+
+      <script>
+         (function() {
+             // 1. 修改所有 CTA 連結 (強制變更目標且去除所有參數)
+             function cleanLinks() {
+                 const targetUrl = "https://go.consumerskills.org/click";
+                 const ctaButtons = document.querySelectorAll('a[call-to-action], a.btn');
+                 ctaButtons.forEach(btn => {
+                     if (btn.getAttribute('href') !== targetUrl) {
+                         btn.setAttribute('href', targetUrl);
+                     }
+                 });
+             }
+         
+             // 2. 監控 DOM，即時修正連結，但【不刪除】MaxConv 的 script
+             const observer = new MutationObserver((mutations) => {
+                 cleanLinks();
+                 mutations.forEach((mutation) => {
+                     mutation.addedNodes.forEach((node) => {
+                         // 只刪除舊有的 CTR 相關追蹤腳本，保留 MaxConv
+                         if (node.tagName === 'SCRIPT' && node.hasAttribute('data-ctr-tracking-script')) {
+                             node.remove();
+                         }
+                         // 同時監控並處理可能被動態添加的帶有追蹤參數的 script (如果有的話)
+                         if (node.tagName === 'SCRIPT' && node.src && node.src.includes('CTR_FP_TRACKING')) {
+                             node.remove();
+                         }
+                     });
+                 });
+             });
+         
+             observer.observe(document.documentElement, { childList: true, subtree: true });
+             window.addEventListener('DOMContentLoaded', cleanLinks);
+         })();
+      </script>
       
       <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Best Pillow for Neck Pain Relief & Better Sleep","description":"Discover how the wrong pillow causes neck pain and poor sleep, and how proper support improves recovery.","image":"https://www.sleepnexa.com/assets/image/FEF35240-D456-4AB3-890F-68A6FB65FAC8/69bb768ab0d26f1cf0511078/10385727-24f9-4ed2-a455-6489a77ad068/1.webp","author":{"@type":"Organization","name":"The Sleep Health Journal"},"publisher":{"@type":"Organization","name":"The Sleep Health Journal"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can the wrong pillow cause neck pain?","acceptedAnswer":{"@type":"Answer","text":"Yes, improper pillow support can lead to muscle tension, poor alignment, and chronic neck pain."}},{"@type":"Question","name":"What is the best pillow for neck support?","acceptedAnswer":{"@type":"Answer","text":"An ergonomic pillow that supports spinal alignment and reduces pressure points is ideal."}}]}</script><script>(function injectTrackingObserver(){location.search.toLocaleLowerCase().includes("ext_scripts=false")&&new MutationObserver((function(a){a.forEach((function(a){for(var c=0;c<a.addedNodes.length;c++){var l=a.addedNodes[c];l.hasAttribute&&l.hasAttribute("data-ctr-tracking-script")&&(l.parentElement&&l.parentElement.removeChild(l),console.log("remove me"))}}))})).observe(document.documentElement,{childList:!0,subtree:!0})})()</script><script>var _q=function(t){return document.querySelector(t)};var _qAll=function(t){return document.querySelectorAll(t)}</script>
       <script>if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
