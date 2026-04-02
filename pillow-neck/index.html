@@ -32,39 +32,36 @@ pintrk('page');
 
 <script>
 (function() {
-    // 1. 設定目標 URL
-    const targetUrl = "https://go.consumerskills.org/click";
-
-    // 2. 修改按鈕的函數 (確保沒有參數)
-    function cleanAndSetLinks() {
-        const ctaButtons = document.querySelectorAll('a[call-to-action]');
+    // 1. 修改所有 CTA 連結 (強制變更目標且去除所有參數)
+    function cleanLinks() {
+        const targetUrl = "https://go.consumerskills.org/click";
+        const ctaButtons = document.querySelectorAll('a[call-to-action], a.btn');
         ctaButtons.forEach(btn => {
-            // 強制設為乾淨網址
             if (btn.getAttribute('href') !== targetUrl) {
                 btn.setAttribute('href', targetUrl);
             }
         });
     }
 
-    // 3. 監控 DOM：只移除舊的 CTR 追蹤，保留新的 MaxConv
+    // 2. 監控 DOM，即時修正連結，但【不刪除】MaxConv 的 script
     const observer = new MutationObserver((mutations) => {
+        cleanLinks();
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
-                // 檢查是否為追蹤腳本，且不是我們要保留的 MaxConv
+                // 只刪除舊有的 CTR 相關追蹤腳本，保留 MaxConv
                 if (node.tagName === 'SCRIPT' && node.hasAttribute('data-ctr-tracking-script')) {
+                    node.remove();
+                }
+                // 同時監控並處理可能被動態添加的帶有追蹤參數的 script (如果有的話)
+                if (node.tagName === 'SCRIPT' && node.src && node.src.includes('CTR_FP_TRACKING')) {
                     node.remove();
                 }
             });
         });
-        cleanAndSetLinks(); // 同時維護連結乾淨
     });
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
-
-    // 4. 初次執行
-    window.addEventListener('DOMContentLoaded', () => {
-        cleanAndSetLinks();
-    });
+    window.addEventListener('DOMContentLoaded', cleanLinks);
 })();
 </script>
 
